@@ -1,85 +1,37 @@
 {
-  "date": "2026-10-15",
-  "gathering_number": 22,
-  "offline_tests": {
-    "endpoint_sentry": 12,
-    "deadline_sentry": 10,
-    "csv_reconcile": 17,
-    "import_map": 6,
-    "abi_workbench": 12,
-    "import_drift": 8,
-    "token_read_plan": 10,
-    "total": 75,
-    "all_passed": true
+  "ok": true,
+  "png": {
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "sha256": "8a6da8f7edad72e85323fa9f58a5c906eb59a4eecad2eecf049874567981c9f0",
+    "bytes": 2667811
   },
-  "test_evidence": [
-    "gathering/line1-audit.md",
-    "gathering/lines23-audit.md",
-    "gathering/line4-audit.md"
+  "jpeg": {
+    "dimensions": [
+      512,
+      512
+    ],
+    "bytes": 59404
+  },
+  "gallery_records": 115,
+  "painted_previews": 15,
+  "placeholders": 100,
+  "gallery_bytes": 80809,
+  "visual_certification": false,
+  "line_files_unchanged": true,
+  "line_tests_passed": 84,
+  "shared_tests_passed": 20,
+  "shared_renderer_tests_passed": 6,
+  "unmet_visual_requirements": [
+    "Exact pixel preservation outside the new mark is not achieved by generative editing; composition was visually reviewed."
   ],
-  "live_observations": {
-    "public_http": {
-      "url": "https://api.imd.fun/launches",
-      "http_status": 200,
-      "json_pointer": "/launches/0/status",
-      "body_bytes": 128134
-    },
-    "ethereum": {
-      "endpoint": "https://ethereum-rpc.publicnode.com",
-      "chain_id": 1,
-      "block_number": 26198502,
-      "tokens": [
-        "ZTO",
-        "IMD"
-      ],
-      "read_calls": 6,
-      "evidence": "shared/token-read-plan/observed-provenance.json"
-    }
+  "inherited_size_exception": {
+    "path": "dist/line-4/01.jpg",
+    "bytes": 143560,
+    "changed": false
   },
-  "wall": {
-    "path": "artifacts/gathering/wall-v2.png",
-    "format": "PNG",
-    "width": 1254,
-    "height": 1254,
-    "bytes": 2757208,
-    "sha256": "65e91dff9ef29883ebf782e39704783e3bd99e12d01cb54cb7bdf3f8324d25af",
-    "chunk_crcs_pass": true
-  },
-  "working_wall_alias_identical": true,
-  "thumbnail": {
-    "path": "dist/gathering/22.jpg",
-    "format": "JPEG",
-    "width": 512,
-    "height": 512,
-    "bytes": 56966
-  },
-  "record_hash_matches_wall": true,
-  "total_records": 110,
-  "placeholder_records": 100,
-  "embedded_gallery_previews": 10,
-  "gallery_bytes": 70979,
-  "gallery_local_links_exist": true,
-  "gallery_has_no_external_script_or_style": true,
-  "all_goals_match_source": true,
-  "new_or_modified_file_size_limit_pass": true,
-  "only_allowed_paths_changed": true,
-  "line_sources_unchanged": true,
-  "line_tree_sha256": {
-    "line-1": "f75f7f4d2f2d5e900726c55a46a9db1d862b70260f105160c84fbe869838bf99",
-    "line-2": "cb782019f3ec4f9b5a941a1f91c90d5f399b093ec81d4a1af57f792b35926705",
-    "line-3": "83dc0831918c1a7459366dafde23b69b3d2731b8dd3bf6085fe48ebd5c2fabf1",
-    "line-4": "55849918449bde6bf471dfb6213e78f427a707d17aaf9485f351d179405c0701"
-  },
-  "line_records_unchanged": true,
-  "vendored_sources_byte_identical": true,
-  "wall_output_not_git_tracked": true,
-  "unmet_visual_requirements_observed": [],
-  "visual_preservation_limit": "Generative edit: composition reviewed, not pixel-identical background. See VISUAL_REVIEW.md.",
-  "known_issues": [
-    "Line 1 explicit port zero defaults to 443",
-    "Line 3 and shared mapper reject valid UTF-8 BOM source",
-    "Line 4 malformed or missing ABI input can emit an uncaught traceback",
-    "Inherited dist/line-4/01.jpg exceeds 100 KB and remains unchanged"
-  ],
-  "local_checks_are_not_independent_certification": true
+  "changed_paths_in_scope": true,
+  "new_and_changed_files_under_size_limit": true
 }

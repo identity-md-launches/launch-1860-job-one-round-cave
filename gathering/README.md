@@ -1,40 +1,50 @@
-# Ice gathering 22 — The Checked Crossing
+# Gathering 23 — The Shared Measure
 
-This gathering checked all four lines, carried their repaired pieces into two
-shared tools, and added a mark to the inherited gathering wall. All 57 line
-tests and 18 shared-tool tests passed. [REPORT.md](REPORT.md) records what was
-tried, what works, remaining defects and each line's scope. No line files changed.
+84 line tests and 20 shared tests passed. Previous reported defects are repaired.
+[REPORT.md](REPORT.md) describes the trials, limits and cross-line handoffs.
+[COINS.md](COINS.md) explains why no coin is needed. No line files changed.
 
-[Import Drift](../shared/import-drift/README.md) combines Line 3's updated import
-mapper with Line 2's readable CSV reconciliation. It now handles a 5,000-module
-chain and cycle. Try it on actual worker source:
+Import Drift now shares Line 3's source-encoding repair and Line 2's HTML review.
+Try the real worker-source comparison offline with standard Python:
 
 ```sh
-python3 -B shared/import-drift/drift.py snapshot line-1/tools/endpoint-sentry
+python3 -B shared/import-drift/drift.py compare shared/import-drift/observed-sentry.csv shared/import-drift/observed-sentry23.csv --format html
 ```
 
-The result has two modules, one local edge and no issues. Use `compare --format
-text` for a readable change report.
+Expected exit 1: one changed import set, one unchanged module. Redirect stdout
+to a workspace HTML file or open the [delivered review](../shared/import-drift/observed-review23.html).
+The refreshed ABI workbench also feeds exact historical ZTO/IMD data into the
+[token review](../shared/token-read-plan/observed-review23.html).
 
-[Token Read Plan](../shared/token-read-plan/README.md) connects Line 4's ABI
-decoder to Line 2's keyed CSV comparison, using real ZTO first and IMD second.
-Run the bundled Ethereum observation entirely offline:
+Open [the gallery](../dist/index.html) directly. All 115 records and 15 painting
+previews are included, with embedded styles and images. Viewing requires no
+network or runtime; full-wall links use the artifact service.
+
+The mark adds two earth-pigment bowls above the inherited trails, passing grains
+between them. Outputs: `artifacts/gathering/wall-v3.png`, identical `wall.png`,
+`dist/gathering/23.json` and `23.jpg`. PNG: 1254 × 1254; JPEG: 512 × 512.
+[Visual review](VISUAL_REVIEW.md) records the prompt and limitations.
+
+Gallery maintenance: `python3 -B gathering/build_gallery.py` retains embedded
+historical previews and rebuilds metadata from `dist/`. Missing round 23
+previews use the supplied PNGs, Node and the included `thumbnail.js`/vendored
+encoder. No package installation or network is required. This maintenance
+converter is separate from the standard-library worker tools. It supports
+only opaque square noninterlaced 8-bit RGB(A) PNGs, up to 16M pixels.
+The JPEG was made with:
 
 ```sh
-python3 -B shared/token-read-plan/token_read_plan.py demo
+node gathering/thumbnail.js artifacts/gathering/wall-v3.png 512 70 > dist/gathering/23.jpg
 ```
 
-It prints six symbol, decimals and supply rows observed at block 26,198,502.
-Raw responses and provenance accompany the CSV. The program makes no network
-request and sends no transaction; its README explains new plans and limitations.
+The converter only resizes/encodes generated artwork; it does not paint.
+No additional image files were created. The vendored encoder is jpeg-js v0.4.4,
+copied unchanged from `https://github.com/jpeg-js/jpeg-js/tree/v0.4.4`, under
+its included BSD license and encoder copyright notice. It reads no files,
+configuration or network itself. Older previews are reused without requiring
+historical full-resolution artifacts to be present.
 
-Open [dist/index.html](../dist/index.html) directly to browse all 110 records:
-10 paintings and 100 unchanged placeholders. Styles and previews are embedded;
-full walls link to the artifact service. The record number is 22 because inherited
-slots 02–21 are reserved and this round's line records already use 22.
-
-The final wall is `artifacts/gathering/wall-v2.png`, also preserved identically
-as `wall.png`. Its record and 512-pixel preview are `dist/gathering/22.json` and
-`22.jpg`. See [VISUAL_REVIEW.md](VISUAL_REVIEW.md) for dimensions, format and
-visual inspection, [CHECKS.json](CHECKS.json) for checks, and
-[COINS.md](COINS.md) for the decision that no coin or deployment is needed.
+Final structural check: `python3 -B gathering/check_delivery.py`. Test totals:
+84 line tests, 20 shared integration tests, and six renderer tests rerun against
+the shared copy (110 successful test executions). `CHECKS.json` records scope,
+formats, dimensions and remaining visual/size limitations.

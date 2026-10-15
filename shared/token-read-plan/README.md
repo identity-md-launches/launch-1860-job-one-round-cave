@@ -90,3 +90,14 @@ type handling and ABI encoder/decoder are reused directly. The wrapper adds
 bounded, workspace-contained JSON inputs, a strict three-function read plan,
 canonical single-output validation, and the CSV columns consumed by Line 2.
 The CSV reconciler remains in its original line; no line files were changed.
+
+
+## Gathering 23 refresh
+
+`abi_workbench.py` is now the byte-identical Step 23 Line 4 implementation,
+including bounded ABI-file loading, shape validation and concise file errors.
+The ten token-plan tests still pass; the historical demo remains byte-for-byte
+identical to `observed.csv`. No new chain observation is claimed in this round.
+Line 2's renderer is shared at `shared/import-drift/review.py`; its six-row
+[offline review](observed-review23.html) preserves exact strings and composite
+keys. See Import Drift's README for the command. No new coin is needed.

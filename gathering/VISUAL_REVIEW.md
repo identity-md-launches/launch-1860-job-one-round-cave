@@ -1,50 +1,46 @@
-# Gathering 22 — visual review
+# Gathering 23 — visual review
 
-Outputs: artifacts/gathering/wall-v2.png and artifacts/gathering/wall.png,
-identical PNG bytes, 1254 × 1254 pixels, square, 2,757,208 bytes each.
-SHA-256: 65e91dff9ef29883ebf782e39704783e3bd99e12d01cb54cb7bdf3f8324d25af.
-Thumbnail: dist/gathering/22.jpg, JPEG, 512 × 512 pixels, 56,966 bytes.
-Record: dist/gathering/22.json, linking to the actual final PNG hash.
+The built-in imagegen tool edited the inherited gathering wall from record 22.
+The downloaded ancestor matched its recorded SHA-256:
+65e91dff9ef29883ebf782e39704783e3bd99e12d01cb54cb7bdf3f8324d25af.
+The input was opened before editing. No line paintings were modified.
 
-The edit target was the existing gathering wall from painted record 01,
-retrieved from its artifact URL and verified as SHA-256
- d17d8d3d59ef990bdad49361e39324734395a0017040d513c3128b26f4b05d03.
-The later records 02–21 are unpainted placeholders, so none replaced the ancestor.
-The existing line paintings were not edited. Record 22 follows the already
-reserved numbers and the four current line records, also numbered 22.
+Final outputs:
+- artifacts/gathering/wall-v3.png and identical wall.png: PNG, RGB, 1254 × 1254.
+- PNG size: 2,667,811 bytes.
+- PNG SHA-256: 8a6da8f7edad72e85323fa9f58a5c906eb59a4eecad2eecf049874567981c9f0.
+- dist/gathering/23.jpg: JPEG, 512 × 512, 59,404 bytes.
+- dist/gathering/23.json: The Shared Measure, pointing to that PNG hash.
 
-Chosen review: view the ancestor and completed whole wall, compare composition,
-look for changed ancestral marks, count every visible hand, and check prohibited
-content before accepting. Both images were opened with the image inspection
-tool. The rock, warm torchlight, left crack, icicles, floor, dark edges, square
-framing, large Pepe, four pigment trails and loop remain visibly aligned.
-The only intended addition is a small reed bridge with pebble clusters and
-chalk/ochre tracks in the previously empty rock below the ancestral painting.
-Its strokes are flat and uneven with stone showing through.
+Chosen review: open the whole ancestor and whole final PNG, then the actual
+512-pixel JPEG; compare layout, ancestral marks, hands and prohibited content.
+The existing large Pepe, four trails, loop, small bridge and pebble clusters
+remain in their original positions. The rock crack, icicles, dark edges, warm
+light, floor and square framing remain visibly aligned. The added mark is a
+small pair of uneven ochre/charcoal bowls and three ochre grains joined by a
+chalk trail in the previously empty rock above the colored trails.
 
-The main figure is the ancestral Pepe: broad mouth and heavy-lidded eyes.
-Counted both visible hands: the upper hand has four fingers and one thumb;
-the lower hand has four fingers and one thumb. No new hands or handprints were
-added. No letters, numbers, captions, signatures, logos, watermarks, frames,
-real people, political symbols, or hateful symbols were observed. The new mark
-is an earth-pigment drawing, not a photographed or three-dimensional object.
+Pepe remains unmistakable, with a broad mouth and heavy-lidded eyes. Counted
+both existing hands: four fingers and one thumb on each. No hands or handprints
+were added. No letters, numbers, captions, signatures, logos, watermarks,
+frames, real people, political or hateful symbols were observed. New strokes
+are flat earth pigments with stone showing through, rather than 3D objects.
 
-Unmet visual requirements observed: none at the composition/visual inspection
-level. Preservation limitation: this is a generative edit, not a pixel-identical
-background operation. Outside a conservative new-mark review rectangle
-(x 470–1000, y 800–1030), mean absolute RGB channel difference from the ancestor
-is 4.4084 on a 0–255 scale; 13.8% of channels differ by more than 8. Therefore
-exact background-pixel preservation is not claimed. No ancestral figure or mark
-was observed erased, relocated, or intentionally redrawn. Human review may
-judge pigment fidelity or preservation more strictly than this inspection.
+Unmet visual requirements observed at composition level: none.
+Preservation limitation: generative editing alters pixels beyond the addition.
+Outside the conservative new-mark rectangle x=690..1020, y=310..460, mean
+absolute RGB difference is 4.5626/255; 14.6264% of channels differ by more than 8.
+Exact background/ancestor pixel preservation is therefore NOT achieved or
+claimed. No ancestral mark was observed removed, moved or intentionally redrawn.
+A human may judge preservation more strictly. This limitation is explicit,
+not a claim that structural verification certifies visual fidelity.
 
-The installed built-in imagegen tool produced the painting. Its returned image
-bytes were saved directly to the required workspace output. The existing
-ffmpeg executable made only the requested JPEG and in-memory gallery previews;
-no additional picture files or installed dependencies were added. The gallery
-works without ffmpeg or network for its embedded previews. The PNG is not a
-placeholder, prompt, or URL-only deliverable.
+The complete returned image bytes were saved to the workspace without reading
+the tool's external default file. The requested JPEG was derived locally with
+the included PNG thumbnail converter and vendored jpeg-js encoder. No other
+image file was created. Gallery previews were encoded in memory into HTML.
+The 1254-pixel square matches the ancestor exactly in dimensions.
 
-Final prompt used with the built-in tool:
+Final prompt (built-in imagegen, not CLI fallback):
 
-Use case: precise-object-edit. Edit target: the supplied ancestral Ice gathering cave wall at artifacts/gathering/wall.png, exactly 1254 by 1254 pixels. Preserve the entire existing image: same square dimensions, rock grain, cracks, warm torchlight, dark edges, icicles, floor, framing, and especially the ancestral large Pepe frog and all four pigment trails and woven loop. Do not erase, move, redraw, sharpen, clean up or change any existing mark. Add ONLY a modest prehistoric pigment mark in the empty lower central rock below the existing frog and loop, approximately x=480..990 y=840..1020. The new mark is a small uneven reed bridge connecting two clusters of four rough pebbles, with a thin chalk track crossing it and four tiny red/yellow ochre dots near its foot, symbolizing tested tools crossing between four workers. Keep it entirely flat handmade earth pigment, worn charcoal strokes, red and yellow ochre, chalk white, bare stone showing through, like Lascaux or Chauvet. The existing Pepe remains the main figure, unmistakable wide mouth and heavy-lidded eyes. Do not add any extra frog, people, hands or handprints; preserve both existing hands with their five digits each. No letters, numbers, captions, signatures, logos, watermarks, borders, frames, political or hateful symbols. Do not make a photographic or 3D bridge; it is a sparse cave drawing on the wall. Keep everything outside the new modest lower-center mark unchanged. Deliver the complete square wall, not a cropped detail.
+Use case: precise-object-edit. Edit the supplied Ice gathering wall, 1254 by 1254 pixels. Preserve its exact square size, framing, rock, cracks, lighting, icicles, floor, and ALL ancestral pigment marks including the large Pepe frog, both five-digit hands, four colored trails and loop, and the small bridge and pebble clusters below. Do not erase, move, redraw or clean any existing mark. Add only a small new cave-pigment mark on the empty rock ABOVE the four trails, approximately x=730..960, y=330..445: two small uneven open shallow bowls joined by a short chalk-white trail, with three red/yellow ochre grains passing between them. This symbolizes making observed data readable and sharing repaired tools. It must be modest, flat, worn hand-painted charcoal and earth ochre with rock showing through, Lascaux/Chauvet style. Existing Pepe with wide mouth and heavy-lidded eyes remains the main figure. No new hands or figures. Preserve the existing hands with exactly four fingers and one thumb each. No letters, numbers, captions, signatures, logos, watermarks, borders, frames, real people, political or hateful symbols. No photographic or 3D additions. Keep all areas outside the new small upper-right mark unchanged. Return the whole square wall.

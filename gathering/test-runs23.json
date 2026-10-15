@@ -1,0 +1,157 @@
+{
+  "line_test_runs": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "f0a004",
+        "wall_time_seconds": 2.29660831,
+        "exit_code": 0,
+        "original_token_count": 478,
+        "output": "test_body_limit_and_exact_limit (test_sentry.SentryTests.test_body_limit_and_exact_limit) ... ok\ntest_cli_validation (test_sentry.SentryTests.test_cli_validation) ... ok\ntest_cli_zero_port_is_argument_error_without_network (test_sentry.SentryTests.test_cli_zero_port_is_argument_error_without_network) ... ok\ntest_default_and_explicit_ports_reach_requested_destination (test_sentry.SentryTests.test_default_and_explicit_ports_reach_requested_destination) ... ok\ntest_explicit_zero_port_rejected_before_connection (test_sentry.SentryTests.test_explicit_zero_port_rejected_before_connection) ... ok\ntest_json_expectation_and_no_authorization (test_sentry.SentryTests.test_json_expectation_and_no_authorization) ... ok\ntest_missing_path_and_type_mismatch (test_sentry.SentryTests.test_missing_path_and_type_mismatch) ... ok\ntest_network_error_categories (test_sentry.SentryTests.test_network_error_categories) ... ok\ntest_pointer_escapes_and_root (test_sentry.SentryTests.test_pointer_escapes_and_root) ... ok\ntest_redirect_explicit_valid_port_preserved (test_sentry.SentryTests.test_redirect_explicit_valid_port_preserved) ... ok\ntest_redirect_loop_and_downgrade (test_sentry.SentryTests.test_redirect_loop_and_downgrade) ... ok\ntest_redirect_zero_port_refused_before_second_connection (test_sentry.SentryTests.test_redirect_zero_port_refused_before_second_connection) ... ok\ntest_relative_redirect_and_limit (test_sentry.SentryTests.test_relative_redirect_and_limit) ... ok\ntest_status_mismatch_is_actionable (test_sentry.SentryTests.test_status_mismatch_is_actionable) ... ok\ntest_strict_json (test_sentry.SentryTests.test_strict_json) ... ok\ntest_truncation_and_compression (test_sentry.SentryTests.test_truncation_and_compression) ... ok\ntest_url_rejections (test_sentry.SentryTests.test_url_rejections) ... ok\n\n----------------------------------------------------------------------\nRan 17 tests in 1.676s\n\nOK\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "4c9097",
+        "wall_time_seconds": 2.18267254,
+        "exit_code": 0,
+        "original_token_count": 289,
+        "output": "test_argument_error (test_deadline_sentry.WatchdogTests.test_argument_error) ... ok\ntest_bad_protocol (test_deadline_sentry.WatchdogTests.test_bad_protocol) ... ok\ntest_failed_probe (test_deadline_sentry.WatchdogTests.test_failed_probe) ... ok\ntest_invalid_deadlines (test_deadline_sentry.WatchdogTests.test_invalid_deadlines) ... ok\ntest_large_pipe_does_not_deadlock (test_deadline_sentry.WatchdogTests.test_large_pipe_does_not_deadlock) ... ok\ntest_no_shell (test_deadline_sentry.WatchdogTests.test_no_shell) ... ok\ntest_partial_output_is_not_success (test_deadline_sentry.WatchdogTests.test_partial_output_is_not_success) ... ok\ntest_real_cli_rejects_zero_port (test_deadline_sentry.WatchdogTests.test_real_cli_rejects_zero_port) ... ok\ntest_real_cli_validation_without_network (test_deadline_sentry.WatchdogTests.test_real_cli_validation_without_network) ... ok\ntest_stalled_worker_killed_and_reaped (test_deadline_sentry.WatchdogTests.test_stalled_worker_killed_and_reaped) ... ok\ntest_success (test_deadline_sentry.WatchdogTests.test_success) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 1.454s\n\nOK\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "aa002b",
+        "wall_time_seconds": 0.522495881,
+        "exit_code": 0,
+        "original_token_count": 539,
+        "output": "test_add_remove_change_and_exact_strings (test_reconcile.ReconciliationTests.test_add_remove_change_and_exact_strings) ... ok\ntest_blank_key_is_literal_and_duplicates_are_ambiguous (test_reconcile.ReconciliationTests.test_blank_key_is_literal_and_duplicates_are_ambiguous) ... ok\ntest_cli_exit_codes_and_parseable_output (test_reconcile.ReconciliationTests.test_cli_exit_codes_and_parseable_output) ... ok\ntest_composite_keys_do_not_concatenate_collisions (test_reconcile.ReconciliationTests.test_composite_keys_do_not_concatenate_collisions) ... ok\ntest_duplicate_key_never_silently_overwrites_or_pairs (test_reconcile.ReconciliationTests.test_duplicate_key_never_silently_overwrites_or_pairs) ... ok\ntest_duplicates_on_candidate_only_still_ambiguous (test_reconcile.ReconciliationTests.test_duplicates_on_candidate_only_still_ambiguous) ... ok\ntest_empty_tables_with_headers (test_reconcile.ReconciliationTests.test_empty_tables_with_headers) ... ok\ntest_ignored_columns (test_reconcile.ReconciliationTests.test_ignored_columns) ... ok\ntest_invalid_inputs (test_reconcile.ReconciliationTests.test_invalid_inputs) ... ok\ntest_invalid_options (test_reconcile.ReconciliationTests.test_invalid_options) ... ok\ntest_multiline_quoted_unicode_and_bom (test_reconcile.ReconciliationTests.test_multiline_quoted_unicode_and_bom) ... ok\ntest_non_utf8_is_rejected (test_reconcile.ReconciliationTests.test_non_utf8_is_rejected) ... ok\ntest_outside_path_rejected_before_open (test_reconcile.ReconciliationTests.test_outside_path_rejected_before_open) ... ok\ntest_reordering_rows_and_columns_is_equal (test_reconcile.ReconciliationTests.test_reordering_rows_and_columns_is_equal) ... ok\ntest_row_and_byte_bounds (test_reconcile.ReconciliationTests.test_row_and_byte_bounds) ... ok\ntest_schema_changes_are_not_claimed_equal (test_reconcile.ReconciliationTests.test_schema_changes_are_not_claimed_equal) ... ok\ntest_text_report_explains_differences_and_duplicate_keys (test_reconcile.ReconciliationTests.test_text_report_explains_differences_and_duplicate_keys) ... ok\n\n----------------------------------------------------------------------\nRan 17 tests in 0.083s\n\nOK\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "70c455",
+        "wall_time_seconds": 0.571382806,
+        "exit_code": 0,
+        "original_token_count": 203,
+        "output": "test_add_remove_schema_and_exact_whitespace (test_review.ReviewTests.test_add_remove_schema_and_exact_whitespace) ... ok\ntest_cli_statuses_and_no_partial_html_on_input_error (test_review.ReviewTests.test_cli_statuses_and_no_partial_html_on_input_error) ... ok\ntest_duplicates_show_all_occurrences_and_ignored_values (test_review.ReviewTests.test_duplicates_show_all_occurrences_and_ignored_values) ... ok\ntest_equal_reordered_records (test_review.ReviewTests.test_equal_reordered_records) ... ok\ntest_hostile_fields_remain_exact_inert_text (test_review.ReviewTests.test_hostile_fields_remain_exact_inert_text) ... ok\ntest_outside_workspace_rejected (test_review.ReviewTests.test_outside_workspace_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.051s\n\nOK\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "c3f5ca",
+        "wall_time_seconds": 1.439293047,
+        "exit_code": 0,
+        "original_token_count": 331,
+        "output": "test_bad_source_encodings_report_errors_and_continue (test_import_map.MapperTests.test_bad_source_encodings_report_errors_and_continue) ... ok\ntest_bom_clean_scan_cli_succeeds (test_import_map.MapperTests.test_bom_clean_scan_cli_succeeds) ... ok\ntest_bom_entrypoint_relative_import_cycle_and_strict_json (test_import_map.MapperTests.test_bom_entrypoint_relative_import_cycle_and_strict_json) ... ok\ntest_cycles_against_independent_reachability (test_import_map.MapperTests.test_cycles_against_independent_reachability) ... ok\ntest_deep_graph (test_import_map.MapperTests.test_deep_graph) ... ok\ntest_nested_collision (test_import_map.MapperTests.test_nested_collision) ... ok\ntest_original_example_and_no_execution (test_import_map.MapperTests.test_original_example_and_no_execution) ... ok\ntest_package_collision_reports_both_paths_and_package_precedence (test_import_map.MapperTests.test_package_collision_reports_both_paths_and_package_precedence) ... ok\ntest_parse_error_and_self_cycle (test_import_map.MapperTests.test_parse_error_and_self_cycle) ... ok\ntest_python_source_encodings_preserve_imports_and_line_numbers (test_import_map.MapperTests.test_python_source_encodings_preserve_imports_and_line_numbers) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.241s\n\nOK\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "f34793",
+        "wall_time_seconds": 0.994612868,
+        "exit_code": 0,
+        "original_token_count": 680,
+        "output": "test_alias_signature_from_real_abi_file (test_abi_workbench.WorkbenchTests.test_alias_signature_from_real_abi_file) ... ok\ntest_argument_count_and_short_returns (test_abi_workbench.WorkbenchTests.test_argument_count_and_short_returns) ... ok\ntest_dynamic_abi_layout (test_abi_workbench.WorkbenchTests.test_dynamic_abi_layout) ... ok\ntest_dynamic_invalid_offsets_and_padding (test_abi_workbench.WorkbenchTests.test_dynamic_invalid_offsets_and_padding) ... ok\ntest_exact_integer_input (test_abi_workbench.WorkbenchTests.test_exact_integer_input) ... ok\ntest_fixed_width_padding (test_abi_workbench.WorkbenchTests.test_fixed_width_padding) ... ok\ntest_gathering_signed_reproduction (test_abi_workbench.WorkbenchTests.test_gathering_signed_reproduction) ... ok\ntest_integer_widths_and_sign_extension (test_abi_workbench.WorkbenchTests.test_integer_widths_and_sign_extension) ... ok\ntest_invalid_boolean (test_abi_workbench.WorkbenchTests.test_invalid_boolean) ... ok\ntest_keccak_independent_vectors (test_abi_workbench.WorkbenchTests.test_keccak_independent_vectors) ... ok\ntest_known_selectors (test_abi_workbench.WorkbenchTests.test_known_selectors) ... ok\ntest_reject_unsupported_types (test_abi_workbench.WorkbenchTests.test_reject_unsupported_types) ... ok\ntest_bad_json_encoding_duplicates_and_depth (test_input_validation.InputValidationTests.test_bad_json_encoding_duplicates_and_depth) ... ok\ntest_bom_and_input_budget (test_input_validation.InputValidationTests.test_bom_and_input_budget) ... ok\ntest_cli_concise_errors (test_input_validation.InputValidationTests.test_cli_concise_errors) ... ok\ntest_cli_malformed_abi_is_error_two (test_input_validation.InputValidationTests.test_cli_malformed_abi_is_error_two) ... ok\ntest_container_and_entry_errors (test_input_validation.InputValidationTests.test_container_and_entry_errors) ... ok\ntest_direct_parameter_validation (test_input_validation.InputValidationTests.test_direct_parameter_validation) ... ok\ntest_missing_and_overloaded_functions (test_input_validation.InputValidationTests.test_missing_and_overloaded_functions) ... ok\ntest_outside_workspace_rejected_before_open (test_input_validation.InputValidationTests.test_outside_workspace_rejected_before_open) ... ok\ntest_parameter_shapes (test_input_validation.InputValidationTests.test_parameter_shapes) ... ok\ntest_selected_outputs_are_checked_even_when_encoding (test_input_validation.InputValidationTests.test_selected_outputs_are_checked_even_when_encoding) ... ok\ntest_unrelated_supported_abi_entry_shapes (test_input_validation.InputValidationTests.test_unrelated_supported_abi_entry_shapes) ... ok\n\n----------------------------------------------------------------------\nRan 23 tests in 0.218s\n\nOK\n"
+      }
+    }
+  ],
+  "demonstrations": [
+    {
+      "command": "python3 -B line-1/tools/endpoint-sentry/sentry.py https://api.imd.fun/launches --json --expect-path /launches/0/status",
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "71ea76",
+          "wall_time_seconds": 0.25420933,
+          "exit_code": 0,
+          "original_token_count": 228,
+          "output": "{\n  \"schema\": \"endpoint-sentry/v1\",\n  \"url\": \"https://api.imd.fun/launches\",\n  \"checked_at\": \"2026-10-15T15:33:03.174519+00:00\",\n  \"ok\": true,\n  \"hops\": [\n    {\n      \"url\": \"https://api.imd.fun/launches\",\n      \"status\": 200,\n      \"headers_ms\": 310.061,\n      \"content_type\": \"application/json; charset=utf-8\",\n      \"content_encoding\": \"identity\",\n      \"body_bytes\": 128503,\n      \"body_sha256\": \"27a9cfce13df0f760dc0bfd25ccbf1cbeecd17b0d1ee64c619ecc6bec81e5d5e\"\n    }\n  ],\n  \"checks\": [\n    {\n      \"name\": \"status\",\n      \"ok\": true,\n      \"expected\": 200,\n      \"actual\": 200\n    },\n    {\n      \"name\": \"json\",\n      \"ok\": true\n    },\n    {\n      \"name\": \"json_pointer\",\n      \"path\": \"/launches/0/status\",\n      \"ok\": true\n    }\n  ],\n  \"limits\": {\n    \"timeout_seconds\": 10,\n    \"max_bytes\": 1048576,\n    \"max_redirects\": 3\n  },\n  \"final_url\": \"https://api.imd.fun/launches\",\n  \"elapsed_ms\": 456.173\n}\n"
+        }
+      }
+    },
+    {
+      "command": "python3 -B line-1/tools/deadline-sentry/deadline_sentry.py --deadline 5 https://api.imd.fun/launches --json --expect-path /launches/0/status",
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "b7f843",
+          "wall_time_seconds": 0.67591901,
+          "exit_code": 0,
+          "original_token_count": 277,
+          "output": "{\n  \"ok\": true,\n  \"probe\": {\n    \"schema\": \"endpoint-sentry/v1\",\n    \"url\": \"https://api.imd.fun/launches\",\n    \"checked_at\": \"2026-10-15T15:33:03.638602+00:00\",\n    \"ok\": true,\n    \"hops\": [\n      {\n        \"url\": \"https://api.imd.fun/launches\",\n        \"status\": 200,\n        \"headers_ms\": 258.562,\n        \"content_type\": \"application/json; charset=utf-8\",\n        \"content_encoding\": \"identity\",\n        \"body_bytes\": 128503,\n        \"body_sha256\": \"27a9cfce13df0f760dc0bfd25ccbf1cbeecd17b0d1ee64c619ecc6bec81e5d5e\"\n      }\n    ],\n    \"checks\": [\n      {\n        \"name\": \"status\",\n        \"ok\": true,\n        \"expected\": 200,\n        \"actual\": 200\n      },\n      {\n        \"name\": \"json\",\n        \"ok\": true\n      },\n      {\n        \"name\": \"json_pointer\",\n        \"path\": \"/launches/0/status\",\n        \"ok\": true\n      }\n    ],\n    \"limits\": {\n      \"timeout_seconds\": 10,\n      \"max_bytes\": 1048576,\n      \"max_redirects\": 3\n    },\n    \"final_url\": \"https://api.imd.fun/launches\",\n    \"elapsed_ms\": 380.973\n  },\n  \"schema\": \"deadline-sentry/v1\",\n  \"deadline_seconds\": 5.0,\n  \"elapsed_ms\": 663.022\n}\n"
+        }
+      }
+    },
+    {
+      "command": "python3 -B line-2/tools/csv-reconcile/reconcile.py line-2/tools/csv-reconcile/demo-before.csv line-2/tools/csv-reconcile/demo-after.csv --key item --key location --format text",
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "fa654c",
+          "wall_time_seconds": 0.305484978,
+          "exit_code": 1,
+          "original_token_count": 154,
+          "output": "# CSV reconciliation: different\n\nKeys: item, location\nRows: 3 before, 3 after; 1 added, 1 removed, 1 changed, 1 unchanged on common columns, 0 ambiguous keys.\nSchema columns added: none; removed: none.\nComparison complete: yes.\n\n## Added\n- Key {\"item\": \"chalk\", \"location\": \"south\"}, record 4: {\"item\": \"chalk\", \"location\": \"south\", \"note\": \"Mark routes\", \"quantity\": \"3\"}\n\n## Removed\n- Key {\"item\": \"flint\", \"location\": \"south\"}, record 4: {\"item\": \"flint\", \"location\": \"south\", \"note\": \"\", \"quantity\": \"4\"}\n\n## Changed\n- Key {\"item\": \"lamp\", \"location\": \"north\"}: quantity: \"1\" → \"2\"\n\n## Ambiguous keys\nNone.\n"
+        }
+      }
+    },
+    {
+      "command": "python3 -B line-3/tools/import-map/import_map.py line-3/tools/import-map/examples --strict",
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "604e0f",
+          "wall_time_seconds": 0.195273073,
+          "exit_code": 1,
+          "original_token_count": 106,
+          "output": "Modules: 4; local edges: 3; cycles: 1; issues: 1\nmain (main.py) [entry point]\n  1: local: pkg import engine -> pkg.engine\npkg (pkg/__init__.py)\npkg.engine (pkg/engine.py)\n  1: local: . import helper -> pkg.helper\n  2: unresolved_local: .missing import value\npkg.helper (pkg/helper.py)\n  1: local: . import engine -> pkg.engine\nCycle: pkg.engine <-> pkg.helper\nIssue: pkg/engine.py:2 unresolved_local .missing import value\n"
+        }
+      }
+    },
+    {
+      "command": "python3 -B line-3/tools/import-map/import_map.py line-1/tools/deadline-sentry --json --strict",
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "f40d71",
+          "wall_time_seconds": 0.491498008,
+          "exit_code": 0,
+          "original_token_count": 568,
+          "output": "{\n  \"modules\": [\n    {\n      \"module\": \"deadline_sentry\",\n      \"path\": \"deadline_sentry.py\",\n      \"entrypoint\": true,\n      \"imports\": [\n        {\n          \"line\": 3,\n          \"target\": \"argparse\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 4,\n          \"target\": \"json\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 5,\n          \"target\": \"math\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 6,\n          \"target\": \"pathlib import Path\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 7,\n          \"target\": \"subprocess\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 8,\n          \"target\": \"sys\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 9,\n          \"target\": \"time\",\n          \"kind\": \"external\"\n        }\n      ],\n      \"dynamic_import_lines\": []\n    },\n    {\n      \"module\": \"test_deadline_sentry\",\n      \"path\": \"test_deadline_sentry.py\",\n      \"entrypoint\": true,\n      \"imports\": [\n        {\n          \"line\": 2,\n          \"target\": \"contextlib\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 3,\n          \"target\": \"io\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 4,\n          \"target\": \"json\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 5,\n          \"target\": \"subprocess\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 6,\n          \"target\": \"sys\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 7,\n          \"target\": \"time\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 8,\n          \"target\": \"unittest\",\n          \"kind\": \"external\"\n        },\n        {\n          \"line\": 10,\n          \"target\": \"deadline_sentry\",\n          \"kind\": \"local\",\n          \"resolved\": \"deadline_sentry\"\n        }\n      ],\n      \"dynamic_import_lines\": []\n    }\n  ],\n  \"edges\": [\n    {\n      \"from\": \"test_deadline_sentry\",\n      \"to\": \"deadline_sentry\"\n    }\n  ],\n  \"cycles\": [],\n  \"issues\": [],\n  \"summary\": {\n    \"module_count\": 2,\n    \"local_edge_count\": 1,\n    \"cycle_count\": 0,\n    \"issue_count\": 0,\n    \"entrypoints\": [\n      \"deadline_sentry\",\n      \"test_deadline_sentry\"\n    ]\n  }\n}\n"
+        }
+      }
+    },
+    {
+      "command": "python3 -B line-4/tools/abi-workbench/abi_workbench.py --demo",
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "3e9bf7",
+          "wall_time_seconds": 0.28694072,
+          "exit_code": 0,
+          "original_token_count": 78,
+          "output": "{\n  \"signature\": \"transfer(address,uint256)\",\n  \"selector\": \"0xa9059cbb\",\n  \"arguments\": [\n    \"0xd782bdea4ef02a0bd391eb9089470c8080f0a68e\",\n    123\n  ],\n  \"calldata\": \"0xa9059cbb000000000000000000000000d782bdea4ef02a0bd391eb9089470c8080f0a68e000000000000000000000000000000000000000000000000000000000000007b\"\n}\n"
+        }
+      }
+    },
+    {
+      "command": "python3 -B shared/token-read-plan/token_read_plan.py demo",
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "36e023",
+          "wall_time_seconds": 0.346380999,
+          "exit_code": 0,
+          "original_token_count": 151,
+          "output": "chain_id,token_address,expected_symbol,field,raw_value,display_value,block_number\n1,0xd782bdea4ef02a0bd391eb9089470c8080f0a68e,ZTO,symbol,ZTO,ZTO,0x18fc1e6\n1,0xd782bdea4ef02a0bd391eb9089470c8080f0a68e,ZTO,decimals,18,18,0x18fc1e6\n1,0xd782bdea4ef02a0bd391eb9089470c8080f0a68e,ZTO,totalSupply,1000000000000000000000000000,1000000000,0x18fc1e6\n1,0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7,IMD,symbol,IMD,IMD,0x18fc1e6\n1,0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7,IMD,decimals,18,18,0x18fc1e6\n1,0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7,IMD,totalSupply,4164418598629000000000000,4164418.598629,0x18fc1e6\n"
+        }
+      }
+    }
+  ]
+}

@@ -1,40 +1,23 @@
-# Independent gathering gallery and shared-tool review
+# Gathering 23 gallery audit
 
-Reviewed the finished `dist/index.html` using Python's standard-library
-`HTMLParser`, compared its record references with the actual JSON files, and
-checked local links, embedded images, ordering and placeholder contents. These
-are structural checks; no browser screenshot or visual rendering was produced.
+`python3 -B gathering/check_delivery.py` passed on the final delivery.
 
-- All 110 record files occur exactly once as gallery cards.
-- Five groups are present: Gathering and Lines 1–4. Every card belongs to its
-  corresponding wall. Painted records in each group are ordered 22 then 01;
-  unpainted records are separately ordered 21 through 02.
-- All 100 placeholders retain the specified original JSON shape and bare-cave
-  artifact URL; none differ from Git HEAD, and none have JPEG files.
-- All local file links resolve within the workspace and exist, including the
-  new Token Read Plan README. All internal section links target existing unique
-  identifiers.
-- Ten JPEG previews are embedded as valid base64 data URLs with JPEG start/end
-  markers, nonempty alternative text and 112-pixel display dimensions. No image
-  was saved during this audit.
-- The page has no scripts, stylesheet links, CSS imports or external CSS image
-  URLs. Its 70,979 bytes fit the 100 KB limit. Full-wall links intentionally use
-  the artifact service; local record and JPEG links use delivered files.
+- All 115 numbered records occur exactly once in `dist/index.html`.
+- All 15 paintings have embedded JPEG previews. There are no scripts, iframes,
+  remote stylesheets, or remote image loads. Ordinary full-wall links use HTTPS.
+- Within each wall, paintings and reserved slots are separately newest first.
+- All 100 placeholder JSON records remain in slots 02–21, without JPEG files.
+- Local record, thumbnail, source and report links resolve. Navigation anchors
+  resolve. Goals exactly match the four unchanged GOAL.md files.
+- The page is 80,809 bytes, below 100 KB. It opens without network access.
+- Record 23 points to the actual PNG SHA-256. PNG CRCs pass; size is 1254 square.
+  The thumbnail's JPEG frame is 512 square and the image was visually opened.
+- All line files matched a pre-execution SHA-256 inventory, including file sets.
+- All newly created/changed paths are in scope and new/changed non-artifact
+  files are under 100 KB. The inherited Line 4 thumbnail exception is unchanged.
 
-Read all four Import Drift implementation/test files and its README before
-running these checks:
-
-```sh
-python3 -B -m unittest discover -s shared/import-drift -p 'test_*.py' -v
-python3 -B shared/import-drift/drift.py snapshot line-1/tools/endpoint-sentry
-python3 -B shared/import-drift/drift.py compare shared/import-drift/observed-sentry.csv shared/import-drift/observed-sentry.csv --format text
-```
-
-All eight tests passed in 2.901 seconds, including the 5,000-module source chain
-and cycle, readable difference exit status, rejection of module-name collisions,
-and analysis of source that would raise if executed. The real source snapshot
-exited 0 with two modules, one local edge, no cycles and no issues. The retained
-snapshot's readable comparison exited 0 with two unchanged modules. The updated
-adapter keeps JSON as the default and forwards text formatting to the reviewed
-Line 2 renderer. No new defect was found in these shared changes. No line files
-were modified.
+The page was checked structurally with HTMLParser, not a browser screenshot.
+No browser rendering certification or independent behavioral audit is claimed.
+`gathering/build_gallery.py` can rebuild it offline by retaining embedded
+historical previews. It only needs Node and the included encoder if a round 23
+preview must be regenerated from its PNG.

@@ -1,0 +1,80 @@
+[
+  {
+    "command": [
+      "python3",
+      "-B",
+      "shared/import-drift/drift.py",
+      "snapshot",
+      "line-1/tools/endpoint-sentry"
+    ],
+    "exit": 0,
+    "output": "shared/import-drift/observed-sentry23.csv",
+    "stderr": "{\"cycle_count\": 0, \"entrypoints\": [\"sentry\", \"test_sentry\"], \"issue_count\": 0, \"local_edge_count\": 1, \"module_count\": 2, \"schema\": \"import-drift/v1\"}\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "shared/import-drift/drift.py",
+      "compare",
+      "shared/import-drift/observed-sentry.csv",
+      "shared/import-drift/observed-sentry23.csv",
+      "--format",
+      "html"
+    ],
+    "exit": 1,
+    "output": "shared/import-drift/observed-review23.html",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "line-2/tools/csv-review/review.py",
+      "shared/token-read-plan/observed.csv",
+      "shared/token-read-plan/observed.csv",
+      "--key",
+      "chain_id",
+      "--key",
+      "token_address",
+      "--key",
+      "field"
+    ],
+    "exit": 0,
+    "output": "test/scratch/gathering23/token-review-line.html",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "shared/import-drift/review.py",
+      "shared/token-read-plan/observed.csv",
+      "shared/token-read-plan/observed.csv",
+      "--key",
+      "chain_id",
+      "--key",
+      "token_address",
+      "--key",
+      "field"
+    ],
+    "exit": 0,
+    "output": "shared/token-read-plan/observed-review23.html",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "shared/import-drift/drift.py",
+      "compare",
+      "shared/import-drift/observed-sentry.csv",
+      "shared/import-drift/observed-sentry23.csv",
+      "--format",
+      "text"
+    ],
+    "exit": 1,
+    "output": "gathering/import-delta23.md",
+    "stderr": ""
+  }
+]

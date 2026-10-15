@@ -1,6 +1,8 @@
 import contextlib
 import csv
 import io
+import json
+from html.parser import HTMLParser
 from pathlib import Path
 import tempfile
 import unittest
@@ -49,6 +51,48 @@ class DriftTests(unittest.TestCase):
         text, report = drift.snapshot(self.root)
         self.assertEqual(report['summary']['issue_count'], 1)
         self.assertIn('parse_error', text)
+
+    def test_python_encodings_produce_equal_structural_snapshots(self):
+        source = self.root / 'main.py'
+        source.write_bytes(b'import json\n')
+        expected, _ = drift.snapshot(self.root)
+        for raw in (b'\xef\xbb\xbfimport json\n',
+                    b'# coding: latin-1\nlabel = "caf\xe9"\nimport json\n'):
+            source.write_bytes(raw)
+            actual, report = drift.snapshot(self.root)
+            self.assertEqual(report['issues'], [])
+            self.assertEqual(actual, expected)
+
+    def test_html_handoff_status_and_inert_parse_errors(self):
+        source = self.root / 'main.py'
+        source.write_text('import csv\n')
+        before, _ = drift.snapshot(self.root)
+        source.write_text('</pre><script>alert(1)</script>\n')
+        after, _ = drift.snapshot(self.root)
+        a, b = self.save('a.csv', before), self.save('b.csv', after)
+        class Tags(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.tags = []
+            def handle_starttag(self, tag, attrs):
+                self.tags.append(tag)
+        for candidate, code in ((a, 0), (b, 1)):
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                self.assertEqual(drift.main(['compare', str(a), str(candidate),
+                                             '--format', 'html']), code)
+            doc = Tags()
+            doc.feed(output.getvalue())
+            self.assertNotIn('script', doc.tags)
+            self.assertNotIn('img', doc.tags)
+            self.assertIn('Content-Security-Policy', output.getvalue())
+            self.assertIn('CSV reconciliation:', output.getvalue())
+        output, errors = io.StringIO(), io.StringIO()
+        with contextlib.redirect_stdout(output), contextlib.redirect_stderr(errors):
+            self.assertEqual(drift.main(['compare', str(a),
+                str(self.save('bad.csv', 'module,x\na,b\n')), '--format', 'html']), 2)
+        self.assertEqual(output.getvalue(), '')
+        self.assertIn('error', json.loads(errors.getvalue()))
 
     def test_duplicate_keys_ambiguous(self):
         (self.root / 'main.py').write_text('')

@@ -9,6 +9,7 @@ import sys
 
 import import_map
 import reconcile
+import review
 
 FIELDS = ['module', 'path', 'entrypoint', 'local_imports', 'external_imports',
           'unresolved_imports', 'dynamic_import_lines', 'parse_errors']
@@ -76,8 +77,8 @@ def main(argv=None):
     diff = commands.add_parser('compare', help='reconcile two saved snapshots')
     diff.add_argument('before')
     diff.add_argument('after')
-    diff.add_argument('--format', choices=('json', 'text'), default='json',
-                      help='comparison format (default: json; text is Markdown)')
+    diff.add_argument('--format', choices=('json', 'text', 'html'), default='json',
+                      help='comparison format (default: json; html is a self-contained review)')
     args = parser.parse_args(argv)
     try:
         if args.command == 'snapshot':
@@ -88,8 +89,12 @@ def main(argv=None):
             print(json.dumps(summary, sort_keys=True), file=sys.stderr)
             return 1 if report['issues'] or report['cycles'] else 0
         report = compare(args.before, args.after)
-        print(reconcile.render_text(report) if args.format == 'text' else
-              json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True))
+        if args.format == 'html':
+            for chunk in review.iter_html(report):
+                print(chunk)
+        else:
+            print(reconcile.render_text(report) if args.format == 'text' else
+                  json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True))
         return 0 if report['equal'] else 1
     except (OSError, ValueError, RecursionError) as exc:
         print(json.dumps({'error': str(exc)}, ensure_ascii=False), file=sys.stderr)

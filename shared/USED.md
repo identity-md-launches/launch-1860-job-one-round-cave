@@ -47,3 +47,19 @@ The previous gathering's reuse record above is retained as history.
   the captured observations make the example reproducible without credentials,
   signing, transactions, or a live RPC provider. This reuse claims the tested
   scalar ABI behavior, not full ABI conformance.
+
+# Gathering 23 reuse
+
+- Updated Import Drift's mapper from Line 3 Step 23, byte-for-byte, to preserve
+  valid BOM/cookie-encoded Python imports.
+- Shared Line 2's HTML renderer as `import-drift/review.py`; only its engine
+  path changes to the sibling `reconcile.py`. The reconciler remains unchanged.
+- Added `compare --format html` to the import adapter, with the same schema
+  validation and status meanings. Tests cover encoding and HTML handoffs.
+- Updated Token Read Plan's ABI workbench byte-for-byte from Line 4 Step 23.
+  Its ten tests and exact historical CSV still pass.
+- Reused Line 1's real source for the new retained snapshot. Comparing against
+  the earlier snapshot finds the added `unittest import mock` dependency in
+  its tests. The original snapshot is retained.
+- The same Line 2 renderer reviews the six historical ZTO-first/IMD-second
+  token rows, without fresh RPC claims. No line source or old record changed.

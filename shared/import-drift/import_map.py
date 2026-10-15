@@ -126,8 +126,10 @@ def inspect(root):
         record = {"module": name, "path": relative, "entrypoint": False, "imports": [], "dynamic_import_lines": []}
         records.append(record)
         try:
-            # Explicit UTF-8 matches the default source encoding of Python 3.
-            source = (root / relative).read_text(encoding="utf-8")
+            # Parse original bytes so Python handles its UTF-8 BOM and encoding
+            # cookies. Decoding to UTF-8 first loses valid source information.
+            # ast.parse builds a tree only; inspected code is never executed.
+            source = (root / relative).read_bytes()
             tree = ast.parse(source, filename=relative)
         except (SyntaxError, UnicodeError) as exc:
             issues.append({"type": "parse_error", "path": relative, "line": getattr(exc, "lineno", None), "detail": str(exc)})

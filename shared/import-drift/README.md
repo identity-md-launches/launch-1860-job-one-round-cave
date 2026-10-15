@@ -5,8 +5,7 @@ code. Python 3.9+ and its standard library are sufficient. No installation,
 network, wallet, configuration discovery, or environment-variable access.
 Run from the workspace root; all input paths must resolve inside it.
 
-This joins Line 3's Import Map to Line 2's CSV Reconcile. Their reviewed Step 22
-versions are copied here unchanged as `import_map.py` and `reconcile.py`, so this
+This joins Line 3's Import Map to Line 2's CSV Reconcile. Their reviewed versions are copied here unchanged as `import_map.py` and `reconcile.py`, so this
 folder can be reused independently. `drift.py` supplies the adapter. Gathering 22
 brings Line 3's deep-graph fix and Line 2's readable report into this shared tool.
 
@@ -53,9 +52,8 @@ cycle membership. The adapter does not add cycle membership to CSV rows.
 
 Inherited limits: external imports cannot be proved installed, attribute imports
 are conservative, dynamic targets are not resolved, and source scanning has no
-total byte/file budget. UTF-8 source is assumed; a UTF-8 BOM currently produces a
-reported parse error even though Python accepts it, and source encoding cookies
-are not honored. AST parsing still has Python's parser limits. Compare inputs
+total byte/file budget. Python source encodings (including UTF-8 BOMs and encoding cookies) are
+honored by the Step 23 mapper, using Python's AST parser on original bytes. AST parsing still has Python's parser limits. Compare inputs
 have the reconciler's 16 MiB/100,000-row limits. Scan only trusted, reasonably sized
 workspace source trees. Cycle detection now uses an iterative traversal, tested
 on a 5,000-module source chain and cycle. The v1 snapshot still rejects
@@ -77,3 +75,42 @@ graphs, and readable comparison exit statuses. The old shared mapper failed a
 1,500-module chain with `maximum recursion depth exceeded`; the upgraded mapper
 handles it. A fresh snapshot of the actual Endpoint Sentry source compared equal
 to `observed-sentry.csv`: two modules, one local edge, no cycles or issues.
+
+
+## Gathering 23: readable HTML handoff
+
+The current mapper is copied byte-for-byte from Line 3's Step 23 repair.
+Line 2's HTML renderer is now `review.py`; its only adaptation is loading the
+sibling `reconcile.py`. `drift.py compare --format html` validates the import
+snapshot schema, then hands the exact comparison to that renderer. All data
+is escaped; the report has no scripts, remote assets or active data fields.
+Exit 0 means equal, 1 means differences/ambiguity, 2 means invalid input with
+no partial HTML. Python standard library only, no dependencies to install.
+
+One command using real source snapshots:
+
+```sh
+python3 -B shared/import-drift/drift.py compare shared/import-drift/observed-sentry.csv shared/import-drift/observed-sentry23.csv --format html
+```
+
+Redirect stdout to a workspace `.html` file to open it in a browser. Tried:
+exit **1**, one changed module (`test_sentry` now imports `unittest.mock`), one
+unchanged module, no ambiguous keys. The retained result is
+[observed-review23.html](observed-review23.html). Snapshots compare structural
+imports only: the port-validation behavior change itself is not inferred.
+
+The same shared renderer accepts Line 4's token CSV via explicit composite keys:
+
+```sh
+python3 -B shared/import-drift/review.py shared/token-read-plan/observed.csv shared/token-read-plan/observed.csv --key chain_id --key token_address --key field
+```
+
+Tried: exit 0, six unchanged historical ZTO/IMD rows, identical output to Line 2's
+original renderer. The delivered result is
+[the token review](../token-read-plan/observed-review23.html).
+
+All **10 shared checks** pass, including Python source encodings and HTML
+handoff statuses/inert parse errors. Line 2's six renderer tests also pass on
+the shared copy. Rendering inherits whole-table memory use and has no output
+size cap; use modest snapshots. `--ignore` in the standalone renderer is not
+redaction: ambiguous rows retain original ignored values.
