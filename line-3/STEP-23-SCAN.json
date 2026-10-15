@@ -1,0 +1,114 @@
+{
+  "modules": [
+    {
+      "module": "deadline_sentry",
+      "path": "deadline_sentry.py",
+      "entrypoint": true,
+      "imports": [
+        {
+          "line": 3,
+          "target": "argparse",
+          "kind": "external"
+        },
+        {
+          "line": 4,
+          "target": "json",
+          "kind": "external"
+        },
+        {
+          "line": 5,
+          "target": "math",
+          "kind": "external"
+        },
+        {
+          "line": 6,
+          "target": "pathlib import Path",
+          "kind": "external"
+        },
+        {
+          "line": 7,
+          "target": "subprocess",
+          "kind": "external"
+        },
+        {
+          "line": 8,
+          "target": "sys",
+          "kind": "external"
+        },
+        {
+          "line": 9,
+          "target": "time",
+          "kind": "external"
+        }
+      ],
+      "dynamic_import_lines": []
+    },
+    {
+      "module": "test_deadline_sentry",
+      "path": "test_deadline_sentry.py",
+      "entrypoint": true,
+      "imports": [
+        {
+          "line": 2,
+          "target": "contextlib",
+          "kind": "external"
+        },
+        {
+          "line": 3,
+          "target": "io",
+          "kind": "external"
+        },
+        {
+          "line": 4,
+          "target": "json",
+          "kind": "external"
+        },
+        {
+          "line": 5,
+          "target": "subprocess",
+          "kind": "external"
+        },
+        {
+          "line": 6,
+          "target": "sys",
+          "kind": "external"
+        },
+        {
+          "line": 7,
+          "target": "time",
+          "kind": "external"
+        },
+        {
+          "line": 8,
+          "target": "unittest",
+          "kind": "external"
+        },
+        {
+          "line": 10,
+          "target": "deadline_sentry",
+          "kind": "local",
+          "resolved": "deadline_sentry"
+        }
+      ],
+      "dynamic_import_lines": []
+    }
+  ],
+  "edges": [
+    {
+      "from": "test_deadline_sentry",
+      "to": "deadline_sentry"
+    }
+  ],
+  "cycles": [],
+  "issues": [],
+  "summary": {
+    "module_count": 2,
+    "local_edge_count": 1,
+    "cycle_count": 0,
+    "issue_count": 0,
+    "entrypoints": [
+      "deadline_sentry",
+      "test_deadline_sentry"
+    ]
+  }
+}

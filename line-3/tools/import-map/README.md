@@ -43,3 +43,36 @@ The implementation and tests require only Python's standard library, offline.
 Scanning remains whole-tree and unbounded in total bytes; AST parsing itself
 still has Python's parser limits. No claim of general runtime import resolution
 is made.
+
+## Step 23: Python source encodings
+
+The mapper now gives original source bytes to Python's AST parser. Valid files
+with a UTF-8 byte-order mark (BOM) no longer lose their imports. Python also
+honors first- or eligible second-line encoding declarations, including Latin-1
+and Windows-1252. The tool still only builds syntax trees; it never runs the
+inspected source. The report schema and exit statuses are unchanged.
+
+Reproduce the reported BOM failure and verify the repair, from the repository
+root, using only the standard library:
+
+```sh
+python3 -B -m unittest discover -s line-3/tools/import-map -v
+```
+
+Tried locally: **10 tests passed**. New checks cover UTF-8 with and without a
+BOM, a matching UTF-8 declaration, Latin-1, a second-line Windows-1252
+declaration, CRLF, exact import line numbers, relative-import cycles, entry
+points, and JSON/strict-mode behavior. Unknown codecs, a BOM/declaration
+conflict, invalid bytes, an ineligible late declaration, and null bytes remain
+visible `parse_error` issues; healthy files in the same scan still produce
+edges. The fixtures are independently accepted or rejected with Python's
+`compile()` without executing the resulting code.
+
+A source-only scan of the existing `line-1/tools/deadline-sentry` returned two
+modules, one local edge, two entry points, and no issues or cycles; strict mode
+exited 0. The original included example still reports four modules, three
+edges, one cycle, and the missing import. No dependencies were installed.
+
+Limits remain: this is static mapping within one explicit import root, with
+whole-tree memory use and Python's own parser limits. Encoding support follows
+the interpreter running the mapper; it is not arbitrary text transcoding.

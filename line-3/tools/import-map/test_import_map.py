@@ -1,6 +1,7 @@
 """Regression checks; fixtures stay beside this file and are removed afterwards."""
 import contextlib
 import io
+import json
 from pathlib import Path
 import random
 import tempfile
@@ -89,6 +90,83 @@ class MapperTests(unittest.TestCase):
         report = import_map.inspect(self.root)
         self.assertEqual(report['cycles'], [['loop']])
         self.assertEqual(report['issues'][0]['type'], 'parse_error')
+
+    def test_python_source_encodings_preserve_imports_and_line_numbers(self):
+        # compile() is an independent acceptance check; its result is never run.
+        cases = {
+            'utf8_bom': (b'\xef\xbb\xbfimport helper\n', 1),
+            'utf8_bom_cookie': (b'\xef\xbb\xbf# coding: utf-8\nimport helper\n', 2),
+            'latin1': (b'# coding: latin-1\nlabel = "caf\xe9"\nimport helper\n', 3),
+            'second_line': (b'#!/usr/bin/python3\n# coding: cp1252\nlabel = "\x80"\nimport helper\n', 4),
+            'crlf': (b'# coding: latin-1\r\nlabel = "caf\xe9"\r\nimport helper\r\n', 3),
+            'default_utf8': ('label = "caf\u00e9"\nimport helper\n'.encode('utf-8'), 2),
+        }
+        self.put('helper.py', 'raise RuntimeError("source must not execute")\n')
+        for name, (source, line) in cases.items():
+            with self.subTest(name=name):
+                compile(source, name + '.py', 'exec')
+                (self.root / (name + '.py')).write_bytes(source)
+        report = import_map.inspect(self.root)
+        self.assertEqual(report['issues'], [])
+        self.assertEqual(report['summary']['local_edge_count'], len(cases))
+        for module in report['modules']:
+            if module['module'] in cases:
+                with self.subTest(name=module['module']):
+                    self.assertEqual(module['imports'], [
+                        {'line': cases[module['module']][1], 'target': 'helper',
+                         'kind': 'local', 'resolved': 'helper'}])
+
+    def test_bom_entrypoint_relative_import_cycle_and_strict_json(self):
+        self.put('pkg/__init__.py', '')
+        (self.root / 'pkg/first.py').write_bytes(
+            b'\xef\xbb\xbffrom . import second\nif __name__ == "__main__":\n'
+            b'    raise RuntimeError("source must not execute")\n')
+        (self.root / 'pkg/second.py').write_bytes(
+            b'# coding: latin-1\nlabel = "caf\xe9"\nfrom . import first\n')
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            status = import_map.main([str(self.root), '--json', '--strict'])
+        report = json.loads(output.getvalue())
+        self.assertEqual(status, 1)  # The cycle is still an issue in strict mode.
+        self.assertEqual(report['issues'], [])
+        self.assertEqual(report['cycles'], [['pkg.first', 'pkg.second']])
+        self.assertEqual(report['summary']['entrypoints'], ['pkg.first'])
+
+    def test_bad_source_encodings_report_errors_and_continue(self):
+        cases = {
+            'unknown_codec': b'# coding: nonexistent_codec\nimport helper\n',
+            'bom_conflict': b'\xef\xbb\xbf# coding: latin-1\nimport helper\n',
+            'invalid_utf8': b'label = "\xff"\nimport helper\n',
+            'invalid_declared_ascii': b'# coding: ascii\nlabel = "\xff"\n',
+            'late_cookie': b'label = 1\n# coding: latin-1\nlabel = "\xe9"\n',
+            'null_byte': b'import helper\n\x00',
+        }
+        self.put('helper.py', '')
+        self.put('healthy.py', 'import helper\n')
+        for name, source in cases.items():
+            with self.subTest(name=name):
+                with self.assertRaises(SyntaxError):
+                    compile(source, name + '.py', 'exec')
+                (self.root / (name + '.py')).write_bytes(source)
+        report = import_map.inspect(self.root)
+        self.assertEqual(report['summary']['issue_count'], len(cases))
+        self.assertEqual({i['path'] for i in report['issues']},
+                         {name + '.py' for name in cases})
+        self.assertTrue(all(i['type'] == 'parse_error' for i in report['issues']))
+        self.assertEqual(report['edges'], [{'from': 'healthy', 'to': 'helper'}])
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(import_map.main([str(self.root), '--strict']), 1)
+
+    def test_bom_clean_scan_cli_succeeds(self):
+        (self.root / 'bom.py').write_bytes(b'\xef\xbb\xbfimport json\n')
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            status = import_map.main([str(self.root), '--json', '--strict'])
+        report = json.loads(output.getvalue())
+        self.assertEqual(status, 0)
+        self.assertEqual(report['issues'], [])
+        self.assertEqual(report['modules'][0]['imports'],
+                         [{'line': 1, 'target': 'json', 'kind': 'external'}])
 
 
 if __name__ == '__main__':

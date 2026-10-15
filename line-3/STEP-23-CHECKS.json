@@ -1,0 +1,59 @@
+{
+  "wall": {
+    "width": 1254,
+    "height": 1254,
+    "format": "PNG",
+    "color": "RGB8",
+    "ancestor_sha256": "9185e2ffef918072d0273e5f822bd9686ae7eb6f5bed7f2ae57e7c141fe8009c",
+    "insertion_box_xyxy": [
+      280,
+      165,
+      455,
+      285
+    ],
+    "changed_pixels": 19935,
+    "changed_pixels_outside_insertion": 0,
+    "wall_sha256": "5a635d0b345691dd56be3f2ffa17a2ea6d0f0bc86664c33b7c45b4096f58d43e"
+  },
+  "number": 23,
+  "test_command": "python3 -B -m unittest discover -s line-3/tools/import-map -v",
+  "tests_passed": 10,
+  "real_source_scan": {
+    "command": "python3 -B line-3/tools/import-map/import_map.py line-1/tools/deadline-sentry --json --strict",
+    "exit_code": 0,
+    "summary": {
+      "module_count": 2,
+      "local_edge_count": 1,
+      "cycle_count": 0,
+      "issue_count": 0,
+      "entrypoints": [
+        "deadline_sentry",
+        "test_deadline_sentry"
+      ]
+    }
+  },
+  "thumbnail": {
+    "path": "dist/line-3/23.jpg",
+    "format": "JPEG",
+    "width": 512,
+    "height": 512,
+    "bytes": 90824
+  },
+  "visual_review": {
+    "full_wall_inspected": true,
+    "thumbnail_inspected": true,
+    "inherited_hands_digits": [
+      5,
+      5
+    ],
+    "new_hands": 0,
+    "unmet_visual_requirements_observed": []
+  },
+  "limitations": [
+    "Static source analysis does not simulate runtime import hooks or path changes.",
+    "Total scan size remains unbounded and Python parser limits apply.",
+    "The shared adapter copy is outside this assignment and retains its prior behavior.",
+    "JPEG preview is lossy; the PNG is the reference for visual review."
+  ],
+  "validation_scope": "Local observations only; not independent certification."
+}

@@ -1,0 +1,30 @@
+{
+  "name": "Many Voices, One Path",
+  "image": "https://api.imd.fun/artifacts/5a635d0b345691dd56be3f2ffa17a2ea6d0f0bc86664c33b7c45b4096f58d43e",
+  "attributes": [
+    {
+      "trait_type": "Cave",
+      "value": "Ice"
+    },
+    {
+      "trait_type": "Wall",
+      "value": "Line 3"
+    },
+    {
+      "trait_type": "Number",
+      "value": 23
+    },
+    {
+      "trait_type": "Left behind",
+      "value": "Import Map"
+    },
+    {
+      "trait_type": "Meaning",
+      "value": "Two charcoal trails join at an ochre dot so different beginnings can be read together."
+    },
+    {
+      "trait_type": "One thing",
+      "value": "Map Python imports and entry points offline"
+    }
+  ]
+}
