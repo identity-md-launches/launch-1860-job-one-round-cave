@@ -1,0 +1,30 @@
+{
+  "name": "The Shared Tablet",
+  "image": "https://api.imd.fun/artifacts/e55fc5356154d13beaec1efebeb47665088fda6915f1833c1522ba17d983b88b",
+  "attributes": [
+    {
+      "trait_type": "Cave",
+      "value": "Ice"
+    },
+    {
+      "trait_type": "Wall",
+      "value": "Line 2"
+    },
+    {
+      "trait_type": "Number",
+      "value": 23
+    },
+    {
+      "trait_type": "Left behind",
+      "value": "CSV Review"
+    },
+    {
+      "trait_type": "Meaning",
+      "value": "Pepe holds out a pebble tablet so another worker can see the differences."
+    },
+    {
+      "trait_type": "One thing",
+      "value": "Reconcile CSV datasets by stable keys"
+    }
+  ]
+}

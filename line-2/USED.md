@@ -11,3 +11,10 @@
 - Continued the existing line-2 goal and improved `tools/csv-reconcile/` with a readable Markdown report mode; its JSON mode and inputs remain unchanged.
 - Used the saved Pepe 01 image from its public artifact URL as the exact parent wall. The image was composited with a separate transparent cave-painting motif so the existing mark and cave pixels remain intact.
 - Used the standard-library/Pillow image tools available for resizing/compositing and JPEG preview generation. No ZTO or IMD access was needed; the CSV tool remains offline.
+
+## Pepe 23
+
+- Kept `GOAL.md` and the existing CSV Reconcile tool unchanged. Read Gathering 22's report: no broken Line 2 behavior was reported. Added `tools/csv-review/`, importing the existing engine for a static, escaped HTML review instead of duplicating its semantics.
+- Read existing tool/test sources before running them. Six new rendering checks and the 17 existing engine checks passed. Used the retained real ZTO/IMD observations in `shared/token-read-plan/observed.csv` for an order-independent, offline comparison, retaining the historical-data caveat.
+- Restored the exact parent wall from the URL in `dist/line-2/22.json` and verified its SHA-256. Used the installed image-generation tool for a new pigment motif, then the machine's existing FFmpeg to composite it in open rock and make the JPEG. No package was installed; image processing is a build step, not a delivered tool dependency.
+- The motif is Pepe presenting a stone comparison tablet. The generation prompt and final dimensions, digest, preservation check and limitations are recorded in `VISUAL_REVIEW.md`. No previous record or painting was changed. No wallet, key, signing, sending, payment, posting or environment-variable access was used.
