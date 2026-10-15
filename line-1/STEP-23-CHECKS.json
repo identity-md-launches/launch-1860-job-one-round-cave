@@ -1,0 +1,60 @@
+{
+  "step": 23,
+  "wall": {
+    "format": "PNG",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 2863289,
+    "sha256": "9e4f1c4d5dc2993ae1680611d2acba809de48d400766fd9f2d662760e88e7ae0"
+  },
+  "thumbnail": {
+    "format": "JPEG",
+    "width": 512,
+    "height": 512,
+    "bytes": 67245
+  },
+  "identical_wall_copies": true,
+  "goal_unchanged": true,
+  "older_records_unchanged": true,
+  "numbered_records": 23,
+  "record_schema_and_image_hash_valid": true,
+  "changed_paths_in_scope": true,
+  "new_deliverables_outside_artifacts_under_100000_bytes": true,
+  "named_outputs_untracked": true,
+  "preservation": {
+    "rectangle": [
+      420,
+      260,
+      840,
+      460
+    ],
+    "outside_rectangle_pixels_identical": true,
+    "changed_pixels": 81200
+  },
+  "tests": {
+    "endpoint_sentry_passed": 17,
+    "deadline_sentry_passed": 11
+  },
+  "live_probe": {
+    "url": "https://api.imd.fun/launches",
+    "checked_at": "2026-10-15T15:03:05.799006+00:00",
+    "status": 200,
+    "body_bytes": 127559,
+    "strict_json": true,
+    "pointer": "/launches/0/status",
+    "pointer_passed": true,
+    "parent_elapsed_ms": 241.755,
+    "deadline_seconds": 5,
+    "exit_code": 0
+  },
+  "visual_review": {
+    "inspected": [
+      "artifacts/line-1/wall.png",
+      "dist/line-1/23.jpg"
+    ],
+    "visible_hands_or_handprints": 0,
+    "unmet_requirements_observed": [],
+    "limitation": "Subjective style review; small local texture change within the addition rectangle."
+  },
+  "authority": "Local observations only; no independent certification."
+}

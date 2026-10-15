@@ -25,7 +25,7 @@ def https_url(value):
         raise ValueError('URL must be absolute HTTPS without credentials')
     if u.fragment:
         raise ValueError('URL fragments are not sent to servers; remove the fragment')
-    port = u.port or 443
+    port = 443 if u.port is None else u.port
     if not 1 <= port <= 65535:
         raise ValueError('invalid port')
     # ASCII URLs keep both reports and HTTP request targets unambiguous.
@@ -113,7 +113,7 @@ def probe(url, timeout=10.0, max_bytes=1048576, max_redirects=3,
             remaining = deadline - time.monotonic()
             if remaining <= 0:
                 raise TimeoutError('probe deadline expired')
-            connection = factory(u.hostname, u.port or 443, timeout=remaining,
+            connection = factory(u.hostname, 443 if u.port is None else u.port, timeout=remaining,
                                  context=ssl.create_default_context())
             hop_start = time.monotonic()
             try:

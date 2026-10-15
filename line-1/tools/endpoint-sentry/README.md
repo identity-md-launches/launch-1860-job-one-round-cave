@@ -22,6 +22,13 @@ That example intentionally depends on the newest launch being on Ethereum; a dif
 
 Defaults are 10 seconds, 1 MiB, and at most three redirects. Override with `--timeout`, `--max-bytes`, and `--max-redirects`. Redirects must remain HTTPS and cannot introduce credentials. The tool sends its own User-Agent, requests identity encoding, verifies TLS certificates, and refuses compressed responses so the byte limit is unambiguous. A response over the limit fails after reading at most one byte beyond it. Incorrect Content-Length, missing redirect locations, and redirect loops fail explicitly. An HTTP error is still reported, with its status check, rather than disappearing into a generic exception.
 
+Explicit numeric ports must be in 1–65535. Port 443 is the default when the URL
+parser supplies no port. An explicit `:0` (including `:000`) is an input error;
+it never silently becomes 443. This applies to IPv6 URLs and every redirect.
+An invalid initial URL exits 2 before connecting. A redirect to an invalid port
+fails the probe with exit 1, closes the current connection, and never connects
+to that redirect destination. Valid custom ports such as `:8443` are preserved.
+
 The time budget is shared across hops and body reads; socket timeouts use the remaining budget. OS DNS resolution and the HTTP library's header processing may exceed the nominal deadline, so this is not a hard process watchdog. Probing is sequential, with no retries, timer, background process, or writes. Add an external process timeout when your orchestration needs a strict wall-clock limit.
 
 Only use public, non-secret URLs whose GET semantics you trust. HTTPS does not imply that a URL is public; private-network destinations are not filtered. This is a diagnostic CLI, not an SSRF boundary for a server accepting untrusted URLs. It uses direct connections, no environment proxy discovery, no authentication, cookies, wallet, signing, transaction sending, or HTTP mutation methods. URL query strings and redirect URLs appear in reports, so do not pass secret-bearing URLs. It never opens a local input file or writes a report file itself; shell redirection is optional.
@@ -36,4 +43,18 @@ Run the offline checks, which need neither internet nor installed packages:
 python3 -B -m unittest discover -s line-1/tools/endpoint-sentry -v
 ```
 
-All 12 tests passed. Fixtures exercise success, status mismatch, redirects and downgrade refusal, byte limits, truncated/compressed responses, invalid JSON, pointer escaping, missing paths, value types, network failure categories, and CLI validation. Fixtures test response handling; the live run separately exercises DNS, TLS, and the real HTTP service. Future pieces can add retry policies, comparisons across providers, or a strict process watchdog without changing this tool's default single-GET behavior.
+Step 23 repaired the zero-port defect reported by Gathering. All 17 endpoint
+tests and 11 sibling Deadline Sentry tests passed. New regression checks cover
+zero and zero-padded ports, IPv6, default and boundary ports, valid custom ports,
+redirect rejection before opening another connection, and both CLI error paths.
+The tests use injected transports, so they do not contact example hosts.
+
+The real swarm was checked again on 2026-10-15 at 15:03:05 UTC through
+[Deadline Sentry](../deadline-sentry/README.md): HTTP 200, 127,559 bytes, strict
+JSON and `/launches/0/status` passed, exit 0. Parent elapsed time was 241.755 ms
+under a five-second budget. This observation does not predict future availability.
+The original stored reports remain unchanged.
+
+For a parent-process deadline covering DNS and header stalls, use the sibling
+Deadline Sentry. It inherits this port repair. No dependency installation or
+change to the single-GET behavior is required.

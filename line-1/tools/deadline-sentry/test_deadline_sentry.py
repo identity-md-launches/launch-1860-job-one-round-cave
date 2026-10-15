@@ -75,6 +75,17 @@ class WatchdogTests(unittest.TestCase):
         self.assertEqual(code, 2)
         self.assertEqual(json.loads(output.getvalue())['error']['kind'], 'arguments')
 
+    def test_real_cli_rejects_zero_port(self):
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            code = watchdog.main(['--deadline', '2', 'https://example.com:0/'])
+        report = json.loads(output.getvalue())
+        self.assertEqual(code, 2)
+        self.assertFalse(report['ok'])
+        self.assertEqual(report['error']['kind'], 'arguments')
+        self.assertIn('invalid port', report['error']['message'])
+        self.assertNotIn('probe', report)
+
 
 if __name__ == '__main__':
     unittest.main()

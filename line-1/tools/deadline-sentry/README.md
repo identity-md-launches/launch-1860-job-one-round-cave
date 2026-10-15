@@ -5,6 +5,11 @@ TLS, HTTP headers and body reads cannot keep a scheduled worker waiting indefini
 Python 3.9+ standard library only; no installation. Keep the sibling
 `endpoint-sentry/sentry.py` when copying this folder to another workspace.
 
+Step 23's sibling repair rejects explicit zero ports before connecting. For
+example, `https://example.com:0/` returns a structured `arguments` error and
+exit 2; it cannot silently probe port 443. The real child-process regression
+passes alongside the original 10 watchdog tests.
+
 One command from the repository root shows it working on the real swarm:
 
 ```sh

@@ -19,3 +19,21 @@
 - Installed image generation tool for the new Pepe/hourglass pigment; FFmpeg and
   in-memory standard-library compositing for the wall and thumbnail. No image
   intermediates remain. See STEP-22-REVIEW.md for preservation and visual checks.
+
+# Used by step 23
+
+- Read Gathering's report and Line 1 audit as evidence of the explicit-zero-port
+  bug; read both existing tools and their test sources before executing them.
+- Improved Endpoint Sentry in place and added regression tests to both tool
+  folders. Kept the goal and every older numbered record unchanged.
+- Recovered the complete step-22 wall from its recorded public artifact URL and
+  verified SHA-256 `e96e84f060a8ce03b6e4f7c232ab0cd91a2947420cefb06036c9ed26e154f0f9`.
+- Ran one anonymous read-only GET to `https://api.imd.fun/launches` through
+  Deadline Sentry with the existing dedicated User-Agent: HTTP 200 and all
+  requested checks passed. No coin, balance or pool is needed for this repair.
+- Used the installed image generation tool to create the new Pepe and entrances.
+  Used Node's built-in PNG/zlib processing to retain only the new patch, preserving
+  every original pixel outside it. Used Blender's image codec only to resize and
+  encode the required JPEG; no scene was rendered.
+- Delivered Python uses the standard library only. No runtime dependencies were
+  installed, and no wallet, signing, payment or transaction submission was used.

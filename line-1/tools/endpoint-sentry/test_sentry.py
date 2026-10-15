@@ -5,6 +5,7 @@ import json
 import socket
 import ssl
 import unittest
+from unittest import mock
 import sentry
 
 
@@ -129,6 +130,54 @@ class SentryTests(unittest.TestCase):
                     'https://example.com:99999', 'https://example.com/é']:
             with self.assertRaises((ValueError, UnicodeError)):
                 sentry.https_url(url)
+
+    def test_explicit_zero_port_rejected_before_connection(self):
+        for url in ['https://example.com:0/', 'https://example.com:000/',
+                    'https://[2001:db8::1]:0/']:
+            with self.subTest(url=url):
+                transport = mock.Mock()
+                with self.assertRaisesRegex(ValueError, 'invalid port'):
+                    sentry.probe(url, connection_factory=transport)
+                transport.assert_not_called()
+
+    def test_default_and_explicit_ports_reach_requested_destination(self):
+        for suffix, expected in [('', 443), (':443', 443), (':1', 1),
+                                 (':8443', 8443), (':65535', 65535)]:
+            with self.subTest(port=suffix):
+                transport = Transport([Response()])
+                r = sentry.probe('https://example.com' + suffix + '/health',
+                                 connection_factory=transport)
+                self.assertTrue(r['ok'])
+                self.assertEqual(transport.calls[0][:4],
+                                 ('example.com', expected, 'GET', '/health'))
+
+    def test_redirect_zero_port_refused_before_second_connection(self):
+        for location in ['https://example.com:0/next', '//other.example:000/next']:
+            with self.subTest(location=location):
+                transport = Transport([Response(302, headers={'Location': location})])
+                factory = mock.Mock(side_effect=transport)
+                r = sentry.probe('https://example.com/start', connection_factory=factory)
+                self.assertFalse(r['ok'])
+                self.assertIn('invalid port', r['error']['message'])
+                self.assertEqual(factory.call_count, 1)
+                self.assertEqual(transport.closed, 1)
+                self.assertNotIn('final_url', r)
+
+    def test_redirect_explicit_valid_port_preserved(self):
+        r = self.run_probe([Response(302, headers={
+            'Location': 'https://other.example:8443/next'}), Response()])
+        self.assertTrue(r['ok'])
+        self.assertEqual(self.transport.calls[1][:4],
+                         ('other.example', 8443, 'GET', '/next'))
+
+    def test_cli_zero_port_is_argument_error_without_network(self):
+        errors = io.StringIO()
+        with mock.patch.object(sentry.http.client, 'HTTPSConnection') as connection:
+            with contextlib.redirect_stderr(errors), self.assertRaises(SystemExit) as caught:
+                sentry.main(['https://example.com:0/'])
+            self.assertEqual(caught.exception.code, 2)
+            self.assertIn('invalid port', errors.getvalue())
+            connection.assert_not_called()
 
     def test_cli_validation(self):
         for flags in [['--timeout', 'nan'], ['--max-bytes', '0'],
