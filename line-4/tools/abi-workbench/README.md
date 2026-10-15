@@ -13,10 +13,10 @@ From the repository root:
 python3 -B -m unittest discover -s line-4/tools/abi-workbench -v
 ```
 
-This runs 12 regression tests, including the gathering's four defect reports,
+This runs 23 regression tests, including the gathering's defect reports,
 all 32 integer widths, malformed output checks, and eight Keccak vectors
 independently obtained using `cast keccak` (Cast is not needed to run the tests).
-All 12 passed locally. The original demo also passed:
+All 23 passed locally, including 11 new input-boundary tests. The original demo also passed:
 
 ```sh
 python3 -B line-4/tools/abi-workbench/abi_workbench.py --demo
@@ -33,8 +33,8 @@ python3 -B line-4/tools/abi-workbench/abi_workbench.py encode --abi line-4/tools
 ```
 
 For your ABI use `encode --abi PATH --function NAME --args '[...]'`, or
-`decode --abi PATH --function NAME --data 0x...`. ABI files are JSON arrays of
-function entries. Integer inputs must be exact JSON integers or decimal strings
+`decode --abi PATH --function NAME --data 0x...`. Run from your workspace root; resolved ABI paths must stay inside that directory.
+ABI files are UTF-8 JSON arrays of entry objects (a UTF-8 BOM is accepted). Integer inputs must be exact JSON integers or decimal strings
 (e.g. `"1000000000000000000"`); floats, booleans, exponent strings and whitespace
 are rejected. JSON numeric exponents parse as floats and are rejected too.
 
@@ -52,6 +52,28 @@ same type validation as the CLI.
 Tuples, arrays, events, fixed point and ambiguous overloaded names are explicitly
 unsupported. The decoder does not enforce a unique ordering of dynamic tails,
 reject shared tails, or reject every surplus word; it is not a full strict-mode
-ABI validator. Inputs are held in memory without a total size budget. This is a
+ABI validator. ABI files are limited to 1 MiB before parsing. Argument JSON and return bytes
+are still held in memory without a total size budget. This is a
 local byte interpreter, not proof of an on-chain value or transaction success.
 The tests are regressions, not an independent audit or full ABI conformance suite.
+
+## Checked inputs (Pepe 23)
+
+The gathering's malformed-object ABI and missing-file reproductions now return
+exit 2 with a concise `error:` on stderr and no success output or traceback.
+The reader checks the ABI container, entry kinds/names, input/output arrays,
+parameter objects, type strings and optional parameter names. Unsupported types
+in the selected function's inputs and outputs fail explicitly; unrelated valid
+entries can contain types the workbench does not implement. This is structural
+validation for this interpreter, not complete Solidity ABI schema validation.
+
+Malformed JSON/UTF-8, duplicate JSON fields, excessive JSON nesting and files
+over 1 MiB are rejected. File I/O failures are handled at the CLI boundary.
+Paths outside the current workspace, including resolved symlinks, are rejected
+before opening. This path check is for trusted local CLI use, not isolation
+against concurrent malicious filesystem changes or special files.
+
+Tried locally: 23 tests passed; the demo and alias `transfer` example still
+produce selector `0xa9059cbb`. Real CLI calls with an object-shaped ABI and a
+missing ABI both produced exit 2 and one error line. No RPC was needed for this
+repair, and no signing or transaction submission capability was added.

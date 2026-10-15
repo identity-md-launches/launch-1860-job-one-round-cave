@@ -4,6 +4,9 @@ import argparse
 import json
 import re
 import sys
+from pathlib import Path
+
+MAX_ABI_BYTES = 1024 * 1024
 
 MASK = (1 << 64) - 1
 ROT = [0, 1, 62, 28, 27, 36, 44, 6, 55, 20, 3, 10, 43, 25, 39, 41, 45, 15, 21, 8, 18, 2, 61, 56, 14]
@@ -38,7 +41,11 @@ def keccak256(data):
     return b''.join(v.to_bytes(8, 'little') for v in a)[:32]
 
 def canonical(param):
+    if not isinstance(param, dict):
+        raise ValueError('ABI parameter must be an object')
     t = param.get('type', '')
+    if not isinstance(t, str):
+        raise ValueError('ABI parameter type must be a string')
     if t.startswith('tuple'):
         raise ValueError('tuple types are not supported in this compact tool')
     if not re.fullmatch(r'(address|bool|string|bytes|bytes(?:[1-9]|[12][0-9]|3[0-2])|u?int(?:8|16|24|32|40|48|56|64|72|80|88|96|104|112|120|128|136|144|152|160|168|176|184|192|200|208|216|224|232|240|248|256)?)', t):
@@ -136,11 +143,58 @@ def decode_tuple(params, data):
         out.append({'name':p.get('name') or f'arg{i}', 'type':t, 'value':val})
     return out
 
+def unique_object(pairs):
+    """Do not silently accept contradictory duplicate JSON fields."""
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f'duplicate JSON field: {key!r}')
+        result[key] = value
+    return result
+
+def validate_abi(abi):
+    if not isinstance(abi, list):
+        raise ValueError('ABI must be a JSON array of entry objects')
+    for i, entry in enumerate(abi):
+        if not isinstance(entry, dict):
+            raise ValueError(f'ABI entry {i} must be an object')
+        kind = entry.get('type')
+        if kind not in ('function', 'constructor', 'event', 'error', 'fallback', 'receive'):
+            raise ValueError(f'ABI entry {i} has an invalid entry type')
+        if kind in ('function', 'event', 'error'):
+            name = entry.get('name')
+            if not isinstance(name, str) or not re.fullmatch(r'[A-Za-z_$][A-Za-z0-9_$]*', name):
+                raise ValueError(f'ABI entry {i} must have a valid name')
+        for field in ('inputs', 'outputs'):
+            params = entry.get(field, [])
+            if not isinstance(params, list):
+                raise ValueError(f'ABI entry {i} {field} must be an array')
+            for j, param in enumerate(params):
+                if not isinstance(param, dict) or not isinstance(param.get('type'), str) or not param['type']:
+                    raise ValueError(f'ABI entry {i} {field}[{j}] must have a nonempty string type')
+                if 'name' in param and not isinstance(param['name'], str):
+                    raise ValueError(f'ABI entry {i} {field}[{j}] name must be a string')
+    return abi
+
 def load_function(path, name):
-    with open(path, encoding='utf-8') as f: abi=json.load(f)
+    # Explicit ABI inputs stay under the workspace from which the CLI is run.
+    root = Path.cwd().resolve()
+    source = Path(path).resolve()
+    if not source.is_relative_to(root):
+        raise ValueError('ABI path must stay inside the current workspace')
+    with source.open('rb') as f:
+        raw = f.read(MAX_ABI_BYTES + 1)
+    if len(raw) > MAX_ABI_BYTES:
+        raise ValueError('ABI file exceeds the 1 MiB input limit')
+    try:
+        abi = validate_abi(json.loads(raw.decode('utf-8-sig'), object_pairs_hook=unique_object))
+    except RecursionError as e:
+        raise ValueError('ABI JSON nesting is too deep') from e
     matches=[x for x in abi if x.get('type')=='function' and x.get('name')==name]
     if len(matches)!=1: raise ValueError(f'expected exactly one ABI function named {name!r}; found {len(matches)}')
     fn=matches[0]
+    for param in fn.get('outputs', []):
+        canonical(param)
     sig=fn['name']+'('+','.join(canonical(p) for p in fn.get('inputs',[]))+')'
     return fn,sig
 
@@ -169,6 +223,6 @@ def main():
             if not re.fullmatch(r'0x(?:[0-9a-fA-F]{2})*',a.data): raise ValueError('--data must be even-length 0x hex')
             print(json.dumps({'signature':sig,'outputs':decode_tuple(fn.get('outputs',[]),bytes.fromhex(a.data[2:]))},indent=2)); return 0
         ap.print_help(); return 2
-    except (ValueError, KeyError, json.JSONDecodeError) as e:
+    except (ValueError, KeyError, OSError) as e:
         print(f'error: {e}',file=sys.stderr); return 2
 if __name__=='__main__': raise SystemExit(main())

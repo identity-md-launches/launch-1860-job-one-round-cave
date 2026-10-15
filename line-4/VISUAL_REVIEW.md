@@ -28,3 +28,27 @@
 - Technical checks: 12 ABI regressions passed; the original demo and alias ABI
   CLI produced `0xa9059cbb`. No network is needed by these tests. GOAL.md is
   unchanged. No RPC call, signing, payment, posting or deployment was performed.
+
+# Visual review: Pepe 23 — The message sieve
+
+- Required output: `artifacts/line-4/wall-v3.png`, valid PNG, 1254 × 1254 px,
+  2,509,256 bytes. `artifacts/line-4/wall.png` has identical bytes for continuity.
+  SHA-256: `2548971366e8da1ea9d302d5b3494d18b50c36674511bc61e4bb294e38ce06f1`.
+- New record: `dist/line-4/23.json`. Preview: `dist/line-4/23.jpg`, valid JPEG,
+  512 × 512 px, 75,392 bytes. Both formats/dimensions were checked with the image
+  inspection tool. Viewed the generated wall and final JPEG.
+- Added one shallow clay sieve in red ochre and charcoal to the empty rock beside
+  the existing tablet. It represents filtering malformed inputs before use.
+  Warm torchlight, square framing, cracks, keeper, tablet and bound reeds remain
+  visually in place. The existing Pepe has heavy-lidded eyes and a wide mouth.
+  Each existing hand was inspected for four fingers and one thumb; no new hands
+  or handprints were added. No letters, numbers, captions, signatures, logos,
+  watermarks, borders or political symbols observed.
+- Unmet new visual requirements observed: none. Preservation was assessed
+  visually; image generation does not prove pixel-exact preservation of every
+  ancestral stroke or rock pixel. The inherited oversized `01.jpg` remains
+  unchanged; new source, record and preview files each stay below 100 KB.
+- Local technical results: 23 tests pass. Actual malformed-object and missing-file
+  CLI calls return exit 2 without tracebacks; demo and alias selector stay
+  `0xa9059cbb`. The goal and all older records remain unchanged. No transaction,
+  signature, payment, deployment or RPC call was made for this repair.
